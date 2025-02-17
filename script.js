@@ -1,17 +1,7 @@
-/*================================================
-
-Polyfill
-
-================================================*/
 
 (function(){ 'use strict';
 
-    /*================================================
-  
-    Request Animation Frame
-  
-    ================================================*/
-    
+     
     var lastTime = 0;
     var vendors = [ 'webkit', 'moz' ];
     for( var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x ) {
@@ -40,12 +30,7 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  DOM Manipulation
-  
-  ================================================*/
-  
+
   (function(){ 'use strict';
   
     function hasClass( elem, className ) {
@@ -82,21 +67,10 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Core
-  
-  ================================================*/
-  
   g = {};
   
   (function(){ 'use strict';
   
-    /*================================================
-  
-    Math
-  
-    ================================================*/
   
     g.m = Math;
     g.mathProps = 'E LN10 LN2 LOG2E LOG10E PI SQRT1_2 SQRT2 abs acos asin atan ceil cos exp floor log round sin sqrt tan atan2 pow max min'.split( ' ' );
@@ -105,12 +79,7 @@ Polyfill
     }
     g.m.TWO_PI = g.m.PI * 2;
   
-    /*================================================
-  
-    Miscellaneous
-  
-    ================================================*/
-  
+ 
     g.isset = function( prop ) {
       return typeof prop != 'undefined';
     };
@@ -123,12 +92,7 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Group
-  
-  ================================================*/
-  
+ 
   (function(){ 'use strict';
   
     g.Group = function() {
@@ -170,21 +134,12 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Utilities
-  
-  ================================================*/
+
   
   (function(){ 'use strict';
   
     g.util = {};
   
-    /*================================================
-  
-    Random
-  
-    ================================================*/
     
     g.util.rand = function( min, max ) {
       return g.m.random() * ( max - min ) + min;
@@ -196,11 +151,6 @@ Polyfill
   
   }());
   
-  /*================================================
-  
-  State
-  
-  ================================================*/
   
   (function(){ 'use strict';
   
@@ -224,11 +174,6 @@ Polyfill
   
   }());
   
-  /*================================================
-  
-  Time
-  
-  ================================================*/
   
   (function(){ 'use strict';
   
@@ -258,12 +203,7 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Grid Entity
-  
-  ================================================*/
-  
+ 
   (function(){ 'use strict';
   
     g.Grid = function( cols, rows ) {
@@ -288,11 +228,6 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Board Tile Entity
-  
-  ================================================*/
   
   (function(){ 'use strict';
   
@@ -382,12 +317,7 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Snake Tile Entity
-  
-  ================================================*/
-  
+ 
   (function(){ 'use strict';
   
     g.SnakeTile = function( opt ) {
@@ -453,11 +383,7 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Food Tile Entity
-  
-  ================================================*/
+
   
   (function(){ 'use strict';
   
@@ -514,12 +440,7 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Snake Entity
-  
-  ================================================*/
-  
+   
   (function(){ 'use strict';
   
     g.Snake = function( opt ) {
@@ -652,13 +573,13 @@ Polyfill
           this.wallFlag = true;
         }
   
-        // check death by eating self
+     
         if( this.parentState.grid.get( this.tiles[ 0 ].col, this.tiles[ 0 ].row ) == 'snake' ) {
           this.deathFlag = 1;
           clearTimeout( this.foodCreateTimeout );
         }
   
-        // check eating of food
+   
         if( this.parentState.grid.get( this.tiles[ 0 ].col, this.tiles[ 0 ].row ) == 'food' ) {
           this.tiles.push( new g.SnakeTile({
             parentState: this.parentState,
@@ -689,13 +610,13 @@ Polyfill
           }, 300);
         }
   
-        // check death by eating self
+     
         if( this.deathFlag ) {
           g.setState( 'play' );
         }
       }
   
-      // update individual snake tiles
+     
       var i = this.tiles.length;
       while( i-- ) {
         this.tiles[ i ].update( i );
@@ -718,12 +639,7 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Food Entity
-  
-  ================================================*/
-  
+   
   (function(){ 'use strict';
   
     g.Food = function( opt ) {
@@ -765,7 +681,7 @@ Polyfill
     };
   
     g.Food.prototype.update = function() {
-      // update food tile
+     
       this.tile.update();
   
       if( this.birthTick > 0 ) {
@@ -774,7 +690,7 @@ Polyfill
         this.birthTick = 0;
       }
   
-      // sync data grid of the play state
+      
       this.parentState.grid.set( this.tile.col, this.tile.row, 'food' );
     };
   
@@ -784,12 +700,7 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Play State
-  
-  ================================================*/
-  
+
   (function(){ 'use strict';
   
     function StatePlay() {
@@ -931,12 +842,7 @@ Polyfill
   
   })();
   
-  /*================================================
-  
-  Game
-  
-  ================================================*/
-  
+ 
   (function(){ 'use strict';
   
     g.config = {
